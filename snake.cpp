@@ -14,7 +14,7 @@ int main(){
 
     int height = 15;                // Map Y Dimension
     int width = 15;                 // Map X Dimension
-    int sleep = 100;                // Difficulty (Lower: Harder)
+    int sleep = 200;                // Difficulty (Lower: Harder)
     char player_skin = '0';         // Snake Skin
     char map_background = '.';      // Empty Node Character
 
