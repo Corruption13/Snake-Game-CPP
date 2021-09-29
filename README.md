@@ -9,4 +9,8 @@ Snake Game designed from scratch in under my time limit, without reference, as c
 
 ## Compile Using:
 
-	$ g++ snake.cpp -o snake -lncurses
+	$ g++ snake.cpp -o snake.exe -lncurses
+
+## Execute:
+
+	$ ./snake.exe
