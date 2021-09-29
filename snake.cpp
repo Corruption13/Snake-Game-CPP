@@ -23,3 +23,6 @@ int main(){
     gameInstance->GameLoop();
     endwin();                  
 }
+
+
+// Refer to GameClass/game.h for documentation.
