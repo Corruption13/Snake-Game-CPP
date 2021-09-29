@@ -39,18 +39,18 @@ Player::Player(int x_init, int y_init, char skin1 = '0'){
 
 void Player::eat(){
     length++;
-    body.push_back(body.back());
+    body.push_back(body.back());                    // Eat Food, Good for health.
 }
-int Player::getLength(){
+int Player::getLength(){                            // Get Length. Never Ended up Using it. 
     return length;
 }
-vector<vector<int>> Player::getBodyPosition(){
+vector<vector<int>> Player::getBodyPosition(){      // Return the Body Coordinate Array.
     return body;
 }
-char Player::getDirection(){
+char Player::getDirection(){                        // Direction Head is facing.
     return direction;
 }
-vector<int> Player::getNextHeadPos(){
+vector<int> Player::getNextHeadPos(){               // Predictive Next Index Snake will go without input. Needed it for self collision detection.
     if(direction == 'd'){
         headPos[1]++;
     }
@@ -65,10 +65,10 @@ vector<int> Player::getNextHeadPos(){
     }
     return headPos;
 }
-void Player::setDirection(char dir){
+void Player::setDirection(char dir){                    // Set Direction Head is facing.
     if(dir == 'a' && direction == 'd')return;
     if(dir == 'w' && direction == 's')return;
-    if(dir == 's' && direction == 'w')return;
+    if(dir == 's' && direction == 'w')return;           // These are to prevent relative reversing of the snake. Only relative Forward, Left, Right allowed.
     if(dir == 'd' && direction == 'a')return;
     direction = dir ;
 }
@@ -91,7 +91,7 @@ void Player::Move(){
     }
 }
 
-void Player::Cascade_Snake(int y, int x){
+void Player::Cascade_Snake(int y, int x){               // Cascade Snake by setting i'th body node as i-1'th body node. 
     for(int i = length-1; i > 0; i--){
         body[i] = body[i-1];
     }
@@ -99,7 +99,7 @@ void Player::Cascade_Snake(int y, int x){
     headPos = {y, x};
 };
 
-bool Player::isPartOfSnake(vector<int> pos){
+bool Player::isPartOfSnake(vector<int> pos){                                                // Collision Detection helper function.
     if(count(body.begin(), body.end(), pos)){printw("\nYou Ate Yourself!"); return true;}
     return false;
 }

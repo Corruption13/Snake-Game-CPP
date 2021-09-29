@@ -22,8 +22,8 @@ Food::Food(int length, int width){
     pos = { rand() % (maxLength -1), rand() % (maxWidth -1)} ;
 }
 void Food::spawn_food(int min_timer, int random_additional_time){
-    timer = rand() % random_additional_time + min_timer;
-    pos = { rand() % (maxLength -1), rand() % (maxWidth -1)} ;
+    timer = rand() % random_additional_time + min_timer;                // Timer before food is respawned. Haven't Implemented.
+    pos = { rand() % (maxLength -1), rand() % (maxWidth -1)} ;          // Spawn Food Randomly.
 }
         
 vector<int> Food::getPos(){
@@ -32,8 +32,10 @@ vector<int> Food::getPos(){
 int Food::getTimer(){
     return timer;
 }
-bool Food::Food::timerDown(){
+bool Food::Food::timerDown(){                   // Reduce Food Life Duration. Return True if expired food.
     timer--;
-    if(timer) return false;
+    if(timer) 
+        return false;
+    //or just spawn_food(10, 10);
     return true;
 }
