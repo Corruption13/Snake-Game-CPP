@@ -1,5 +1,5 @@
 # Snake-Game-CPP
-Snake Game designed from scratch in under my time limit, without reference, as challenge.
+Snake Game designed and implemented from scratch in under 2 hours limit, without reference, as random challenge for myself.
 
 
 ## Requirements:
