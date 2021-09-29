@@ -23,6 +23,7 @@ private:
     bool isAlive;
     int length;
     char direction; // W, A, S, D
+
 };
 
 
@@ -31,6 +32,7 @@ Player::Player(int x_init, int y_init, char skin1 = '0'){
     skin = skin1;
     length = 1;
     direction = 'd';
+ 
     headPos = {x_init, y_init};
     body.push_back(headPos);
 }
@@ -66,10 +68,11 @@ vector<int> Player::getNextHeadPos(){               // Predictive Next Index Sna
     return headPos;
 }
 void Player::setDirection(char dir){                    // Set Direction Head is facing.
-    if(dir == 'a' && direction == 'd')return;
-    if(dir == 'w' && direction == 's')return;
-    if(dir == 's' && direction == 'w')return;           // These are to prevent relative reversing of the snake. Only relative Forward, Left, Right allowed.
-    if(dir == 'd' && direction == 'a')return;
+    if(dir == direction)return; // Speed Up Snake Feature?
+    if(dir == 'a' && direction == 'd'){return;}
+    if(dir == 'w' && direction == 's'){return;}
+    if(dir == 's' && direction == 'w'){return;}         // These are to prevent relative reversing of the snake. Only relative Forward, Left, Right allowed.
+    if(dir == 'd' && direction == 'a'){return;}
     direction = dir ;
 }
 char Player::getSkin(){
@@ -100,7 +103,7 @@ void Player::Cascade_Snake(int y, int x){               // Cascade Snake by sett
 };
 
 bool Player::isPartOfSnake(vector<int> pos){                                                // Collision Detection helper function.
-    if(count(body.begin(), body.end(), pos)){printw("\nYou Ate Yourself!"); return true;}
+    if(count(body.begin()+1, body.end(), pos)){printw("\nYou Ate Yourself!"); return true;}
     return false;
 }
 

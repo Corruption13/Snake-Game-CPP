@@ -14,13 +14,17 @@ int main(){
 
     int height = 15;                // Map Y Dimension
     int width = 15;                 // Map X Dimension
-    int sleep = 200;                // Difficulty (Lower: Harder)
+    int sleep = 150;                // Difficulty (Lower: Harder)
     char player_skin = '0';         // Snake Skin
     char map_background = '.';      // Empty Node Character
 
+
     initscr();  
+    
     Game *gameInstance = new Game(height, width, sleep, player_skin, map_background);
     gameInstance->GameLoop();
+    //gameInstance->ResponsiveGameLoopExperimental(); // Try commenting above and running this instead for responsive game.
+    
     endwin();                  
 }
 

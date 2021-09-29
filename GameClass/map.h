@@ -41,7 +41,7 @@ char Map::Get_Index(vector<int> coor){                  // Get Character in spec
 } 
 void Map::Print_Arena(){                                // Draw the map, with borders and all.
     
-    printw("  SNAKE GAME BY SANDEEP\n");
+    
     for(int k = 0; k < horizontal+3; k++){
         printw("_ ");
     }

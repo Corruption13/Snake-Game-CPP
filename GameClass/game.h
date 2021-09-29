@@ -8,6 +8,7 @@ public:
 
     Game(int height, int width, int sleep1, char player_skin, char map_background);
     void GameLoop();
+    void ResponsiveGameLoopExperimental();
     void GenerateNewFood();
     void UpdateGame();
     void DrawGame();
@@ -43,20 +44,38 @@ Game::Game(int height, int width, int sleep1, char player_skin, char map_backgro
 }
 
 void Game::GameLoop(){                                  // Main Game Loop.
+        
         while(activeGame){
-            input = readEnteredKey();                   // Input User
-            p->setDirection(input);  
-
-            while(!PressKey()){                         // Main Game Loop
+            input = readEnteredKey();                   // User Input
+            //p->setDirection(input);                   //// Dev Note: Putting setDirection here makes input more responsive, but you can eat yourself by trying to 180 real quick.
+            while(!PressKey()){                         
+                p->setDirection(input);                 //// But Putting it here makes it less responsive but more correct. Sigh What do.
                 UpdateGame();
                 DrawGame();         
                 sleepms(sleep);                 
-                if(!activeGame) break;
+                if(!activeGame) break;                  // To Prevent case where game continues till key is pressed.
             }
-
         }
-        printw("\nGAME OVER!");                         // End Game.
-        sleepms(5000);
+
+        printw("\n\nGAME OVER!\n");                     // End Game.
+        getch();
+}
+
+void Game::ResponsiveGameLoopExperimental(){         // More Responsive Structure. But quick 180 kills your snake.
+        
+        while(activeGame){
+            input = readEnteredKey();                   
+            p->setDirection(input);                   
+            while(!PressKey()){                         
+                //p->setDirection(input);                
+                UpdateGame();
+                DrawGame();         
+                sleepms(sleep);                 
+                if(!activeGame) break;                  
+            }
+        }
+
+        printw("\n\nGAME OVER!\n");                     
         getch();
 }
 
@@ -74,20 +93,21 @@ void Game::GenerateNewFood(){
 void Game::UpdateGame(){
     
     p->Move();                                                      // Move Snake as needed.
-    m->Refresh();                                                   // Refresh Map and redraw objects on it.
+                                                      
 
     vector<int> nextPos = p->getNextHeadPos();
     vector<vector<int>> pos = p->getBodyPosition();
-    if(m->OutOfBounds(pos[0]) || p->isPartOfSnake(nextPos)){        // If failure conditions, end game.
+    if(m->OutOfBounds(pos[0]) || p->isPartOfSnake(pos[0])){        // If failure conditions, end game.
         activeGame = false;
         return;
     }
     if(f->getPos() == pos[0]){                                  // If Capture Food, Generate new food.
         p->eat(); 
-        points++;   
+        points+=10;   
         GenerateNewFood();
     }
     
+    m->Refresh();                                               // Refresh Map and redraw objects on it.
     //Update Map
     for(int i = 0; i < pos.size(); i++){                        // Draw Objects over fresh map.
         m->Set_Index(pos[i], p->getSkin());
@@ -102,13 +122,14 @@ void Game::DrawGame(){                                              // MAIN UI i
     // /* Debug Stats
     vector<int> foodPos = f->getPos();
     vector<int> playerPos = p->getNextHeadPos();
-    printw("\n(Food = %d:%d | ", foodPos[0], foodPos[1]) ;
-    printw("Player = %d:%d)\n", playerPos[0], playerPos[1]) ;
+    printw("\nSNAKE GAME BY Sandeep Pillai");
+    printw("\nStats: (Food = %d:%d | ", foodPos[0], foodPos[1]) ;
+    printw("Player = %d:%d)", playerPos[0], playerPos[1]) ;
     printw("[Difficulty: %d]\n", (1000 - sleep)/50);
     // */
 
     m->Print_Arena();                       // Draw Map
-    printw("\n\nSCORE: [%d]\n", points);    // Score.
+    printw("\n\nSCORE: %d\n", points);    // Score.
 
 
     
