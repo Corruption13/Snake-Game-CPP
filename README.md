@@ -13,3 +13,11 @@ Snake Game designed and implemented from scratch in under 2 hours limit, without
 ## Execute:
 
 	$ ./snake.exe
+
+
+
+### Learning OOPS Grind
+
+This repo was made while preparing for job interviews. You can find additional assignments I did below:
+
+Mars Rover OOPS LLD: https://github.com/Corruption13/mars-rover
